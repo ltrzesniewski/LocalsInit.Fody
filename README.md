@@ -7,6 +7,8 @@
 
 This is an add-in for [Fody](https://github.com/Fody/Fody) which lets you control the value of the `localsinit` flag on methods.
 
+This is most useful to eliminate the zero-initialization of memory returned by `stackalloc`.
+
 There is a [compiler feature proposal](https://github.com/dotnet/csharplang/blob/master/proposals/skip-localsinit.md) with the same goal. It will replace this weaver if it ever ships.
 
 ## Installation
@@ -35,4 +37,12 @@ See [Fody usage](https://github.com/Fody/Home/blob/master/pages/usage.md) for ge
 
 Add a `[LocalsInit(false)]` attribute to disable the `localsinit` flag at the desired level.
 
-You can also add `[LocalsInit(true)]` attributes at lower levels to override the value set in a parent level.
+You can also add `[LocalsInit(true)]` attributes at lower levels to override the value set at a higher level.
+
+In practice, you'll probably want to set the default to `false` on the assembly level:
+
+```C#
+[assembly: LocalsInit(false)]
+```
+
+Then, look in your code for usages of the `stackalloc` keyword. In each case, if the code assumes the memory to be zero-initialized, add the `[LocalsInit(true)]` attribute to the method (or change the code to remove that assumption).
