@@ -9,6 +9,8 @@ namespace LocalsInit.Tests
     public class AssemblyFixture
     {
         public static AssemblyFixture AssemblyToProcess { get; } = new AssemblyFixture("LocalsInit.Tests.AssemblyToProcess.dll");
+        public static AssemblyFixture AssemblyToProcessDefaultTrue { get; } = new AssemblyFixture("LocalsInit.Tests.AssemblyToProcess.DefaultTrue.dll");
+        public static AssemblyFixture AssemblyToProcessDefaultFalse { get; } = new AssemblyFixture("LocalsInit.Tests.AssemblyToProcess.DefaultFalse.dll");
 
         public TestResult TestResult { get; }
 

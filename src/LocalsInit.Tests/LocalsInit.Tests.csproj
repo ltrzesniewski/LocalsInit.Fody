@@ -18,6 +18,8 @@
     <ProjectReference Include="..\LocalsInit\LocalsInit.csproj" />  
     <ProjectReference Include="..\LocalsInit.Fody\LocalsInit.Fody.csproj" />
     <ProjectReference Include="..\LocalsInit.Tests.AssemblyToProcess\LocalsInit.Tests.AssemblyToProcess.csproj" />
+    <ProjectReference Include="..\LocalsInit.Tests.AssemblyToProcess.DefaultTrue\LocalsInit.Tests.AssemblyToProcess.DefaultTrue.csproj" />
+    <ProjectReference Include="..\LocalsInit.Tests.AssemblyToProcess.DefaultFalse\LocalsInit.Tests.AssemblyToProcess.DefaultFalse.csproj" />
   </ItemGroup>
 
 </Project>
