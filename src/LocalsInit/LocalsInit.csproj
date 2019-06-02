@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DebugType>none</DebugType>
+    <IsPackable>true</IsPackable>
+    <PackageId>LocalsInit.Fody</PackageId>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fody" Version="$(FodyVersion)" />
+    <PackageReference Include="FodyPackaging" Version="$(FodyVersion)" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

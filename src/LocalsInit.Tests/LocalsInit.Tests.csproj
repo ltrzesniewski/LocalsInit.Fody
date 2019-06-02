@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.0;net472</TargetFrameworks>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <DisableFody>true</DisableFody>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FodyHelpers" Version="$(FodyVersion)" />
+    <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LocalsInit\LocalsInit.csproj" />  
+    <ProjectReference Include="..\LocalsInit.Fody\LocalsInit.Fody.csproj" />
+    <ProjectReference Include="..\LocalsInit.Tests.AssemblyToProcess\LocalsInit.Tests.AssemblyToProcess.csproj" />
+  </ItemGroup>
+
+</Project>

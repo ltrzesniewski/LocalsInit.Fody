@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <PropertyGroup>
+    <Version>0.0.1</Version>
+    <FodyVersion>4.2.1</FodyVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>Lucas Trzesniewski</Authors>
+    <Description>Control the value of the localsinit flag on methods.</Description>
+    <PackageTags>IL, MSIL, Fody, ILWeaving, Cecil</PackageTags>
+    <PackageProjectUrl>https://github.com/ltrzesniewski/LocalsInit.Fody</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)..\output</PackageOutputPath>
+  </PropertyGroup>
+
+</Project>
