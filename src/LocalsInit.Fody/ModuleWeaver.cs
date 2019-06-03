@@ -24,54 +24,7 @@ namespace LocalsInit.Fody
             {
                 var typeValue = ConsumeAttribute(typeDefinition) ?? moduleValue;
 
-                methodDefaults.Clear();
-
-                if (typeDefinition.HasProperties)
-                {
-                    foreach (var propertyDefinition in typeDefinition.Properties)
-                    {
-                        var propValue = ConsumeAttribute(propertyDefinition);
-                        if (propValue == null)
-                            continue;
-
-                        if (propertyDefinition.GetMethod != null)
-                            methodDefaults[propertyDefinition.GetMethod] = propValue.GetValueOrDefault();
-
-                        if (propertyDefinition.SetMethod != null)
-                            methodDefaults[propertyDefinition.SetMethod] = propValue.GetValueOrDefault();
-
-                        if (propertyDefinition.HasOtherMethods)
-                        {
-                            foreach (var methodDefinition in propertyDefinition.OtherMethods)
-                                methodDefaults[methodDefinition] = propValue.GetValueOrDefault();
-                        }
-                    }
-                }
-
-                if (typeDefinition.HasEvents)
-                {
-                    foreach (var eventDefinition in typeDefinition.Events)
-                    {
-                        var eventValue = ConsumeAttribute(eventDefinition);
-                        if (eventValue == null)
-                            continue;
-
-                        if (eventDefinition.AddMethod != null)
-                            methodDefaults[eventDefinition.AddMethod] = eventValue.GetValueOrDefault();
-
-                        if (eventDefinition.RemoveMethod != null)
-                            methodDefaults[eventDefinition.RemoveMethod] = eventValue.GetValueOrDefault();
-
-                        if (eventDefinition.InvokeMethod != null)
-                            methodDefaults[eventDefinition.InvokeMethod] = eventValue.GetValueOrDefault();
-
-                        if (eventDefinition.HasOtherMethods)
-                        {
-                            foreach (var methodDefinition in eventDefinition.OtherMethods)
-                                methodDefaults[methodDefinition] = eventValue.GetValueOrDefault();
-                        }
-                    }
-                }
+                SetMethodDefaultsForType(typeDefinition, methodDefaults);
 
                 foreach (var methodDefinition in typeDefinition.Methods)
                 {
@@ -99,6 +52,58 @@ namespace LocalsInit.Fody
                             if (ShouldHaveInitLocals(methodDefinition))
                                 methodDefinition.Body.InitLocals = true;
                             break;
+                    }
+                }
+            }
+        }
+
+        private static void SetMethodDefaultsForType(TypeDefinition typeDefinition, Dictionary<MethodDefinition, bool> methodDefaults)
+        {
+            methodDefaults.Clear();
+
+            if (typeDefinition.HasProperties)
+            {
+                foreach (var propertyDefinition in typeDefinition.Properties)
+                {
+                    var propValue = ConsumeAttribute(propertyDefinition);
+                    if (propValue == null)
+                        continue;
+
+                    if (propertyDefinition.GetMethod != null)
+                        methodDefaults[propertyDefinition.GetMethod] = propValue.GetValueOrDefault();
+
+                    if (propertyDefinition.SetMethod != null)
+                        methodDefaults[propertyDefinition.SetMethod] = propValue.GetValueOrDefault();
+
+                    if (propertyDefinition.HasOtherMethods)
+                    {
+                        foreach (var methodDefinition in propertyDefinition.OtherMethods)
+                            methodDefaults[methodDefinition] = propValue.GetValueOrDefault();
+                    }
+                }
+            }
+
+            if (typeDefinition.HasEvents)
+            {
+                foreach (var eventDefinition in typeDefinition.Events)
+                {
+                    var eventValue = ConsumeAttribute(eventDefinition);
+                    if (eventValue == null)
+                        continue;
+
+                    if (eventDefinition.AddMethod != null)
+                        methodDefaults[eventDefinition.AddMethod] = eventValue.GetValueOrDefault();
+
+                    if (eventDefinition.RemoveMethod != null)
+                        methodDefaults[eventDefinition.RemoveMethod] = eventValue.GetValueOrDefault();
+
+                    if (eventDefinition.InvokeMethod != null)
+                        methodDefaults[eventDefinition.InvokeMethod] = eventValue.GetValueOrDefault();
+
+                    if (eventDefinition.HasOtherMethods)
+                    {
+                        foreach (var methodDefinition in eventDefinition.OtherMethods)
+                            methodDefaults[methodDefinition] = eventValue.GetValueOrDefault();
                     }
                 }
             }
