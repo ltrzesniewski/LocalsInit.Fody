@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 
 namespace LocalsInit.Tests.AssemblyToProcess
 {
@@ -15,5 +16,9 @@ namespace LocalsInit.Tests.AssemblyToProcess
         [LocalsInit(false)]
         public void MethodFalse()
             => EnsureLocal(out _);
+
+        [DllImport("dummy")]
+        [LocalsInit(false)] // This is nonsensical, but make sure it is removed by the weaver
+        public static extern void MethodWithoutBody();
     }
 }

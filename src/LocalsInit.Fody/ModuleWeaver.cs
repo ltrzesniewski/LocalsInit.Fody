@@ -8,6 +8,8 @@ namespace LocalsInit.Fody
 {
     public class ModuleWeaver : BaseModuleWeaver
     {
+        public const string AttributeFullName = "LocalsInit.LocalsInitAttribute";
+
         public override IEnumerable<string> GetAssembliesForScanning()
             => Enumerable.Empty<string>();
 
@@ -28,10 +30,10 @@ namespace LocalsInit.Fody
 
                 foreach (var methodDefinition in typeDefinition.Methods)
                 {
+                    var methodValue = ConsumeAttribute(methodDefinition);
+
                     if (!methodDefinition.HasBody)
                         continue;
-
-                    var methodValue = ConsumeAttribute(methodDefinition);
 
                     if (methodValue == null && methodDefaults.TryGetValue(methodDefinition, out var methodDefault))
                         methodValue = methodDefault;
@@ -118,7 +120,7 @@ namespace LocalsInit.Fody
             if (!item.HasCustomAttributes)
                 return null;
 
-            var attr = item.CustomAttributes.SingleOrDefault(i => i.AttributeType.FullName == "LocalsInit.LocalsInitAttribute");
+            var attr = item.CustomAttributes.SingleOrDefault(i => i.AttributeType.FullName == AttributeFullName);
             if (attr == null)
                 return null;
 

@@ -1,4 +1,5 @@
 using System.Linq;
+using LocalsInit.Fody;
 using LocalsInit.Tests.Support;
 using Xunit;
 
@@ -48,6 +49,13 @@ namespace LocalsInit.Tests
             var eventDefinition = GetTypeDefinition(className).Events.Single(i => i.Name == propName);
             var method = remove ? eventDefinition.RemoveMethod : eventDefinition.AddMethod;
             method.Body.InitLocals.ShouldEqual(expectedValue);
+        }
+
+        [Fact]
+        public void should_consume_attribute_on_all_methods()
+        {
+            foreach (var methodDefinition in GetTypeDefinition("TestTypeDefault").Methods)
+                methodDefinition.CustomAttributes.Any(i => i.AttributeType.FullName == ModuleWeaver.AttributeFullName).ShouldBeFalse();
         }
     }
 }
