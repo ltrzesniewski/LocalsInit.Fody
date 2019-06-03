@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Fody;
@@ -26,7 +27,7 @@ namespace LocalsInit.Fody
             {
                 var typeValue = ConsumeAttribute(typeDefinition) ?? moduleValue;
 
-                SetMethodDefaultsForType(typeDefinition, methodDefaults);
+                CollectMethodDefaultsForType(typeDefinition, methodDefaults);
 
                 foreach (var methodDefinition in typeDefinition.Methods)
                 {
@@ -59,7 +60,7 @@ namespace LocalsInit.Fody
             }
         }
 
-        private static void SetMethodDefaultsForType(TypeDefinition typeDefinition, Dictionary<MethodDefinition, bool> methodDefaults)
+        private static void CollectMethodDefaultsForType(TypeDefinition typeDefinition, Dictionary<MethodDefinition, bool> methodDefaults)
         {
             methodDefaults.Clear();
 
@@ -120,14 +121,21 @@ namespace LocalsInit.Fody
             if (!item.HasCustomAttributes)
                 return null;
 
-            var attr = item.CustomAttributes.SingleOrDefault(i => i.AttributeType.FullName == AttributeFullName);
-            if (attr == null)
-                return null;
+            try
+            {
+                var attr = item.CustomAttributes.SingleOrDefault(i => i.AttributeType.FullName == AttributeFullName);
+                if (attr == null)
+                    return null;
 
-            var value = (bool?)attr.ConstructorArguments.Single().Value;
-            item.CustomAttributes.Remove(attr);
+                var value = (bool)attr.ConstructorArguments.Single().Value;
+                item.CustomAttributes.Remove(attr);
 
-            return value;
+                return value;
+            }
+            catch (InvalidOperationException)
+            {
+                throw new WeavingException($"Invalid {AttributeFullName} on {item.GetType().Name}: {item}");
+            }
         }
     }
 }
