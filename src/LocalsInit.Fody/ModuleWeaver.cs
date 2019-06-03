@@ -47,6 +47,31 @@ namespace LocalsInit.Fody
                     }
                 }
 
+                if (typeDefinition.HasEvents)
+                {
+                    foreach (var eventDefinition in typeDefinition.Events)
+                    {
+                        var eventValue = ConsumeAttribute(eventDefinition);
+                        if (eventValue == null)
+                            continue;
+
+                        if (eventDefinition.AddMethod != null)
+                            methodDefaults[eventDefinition.AddMethod] = eventValue.GetValueOrDefault();
+
+                        if (eventDefinition.RemoveMethod != null)
+                            methodDefaults[eventDefinition.RemoveMethod] = eventValue.GetValueOrDefault();
+
+                        if (eventDefinition.InvokeMethod != null)
+                            methodDefaults[eventDefinition.InvokeMethod] = eventValue.GetValueOrDefault();
+
+                        if (eventDefinition.HasOtherMethods)
+                        {
+                            foreach (var methodDefinition in eventDefinition.OtherMethods)
+                                methodDefaults[methodDefinition] = eventValue.GetValueOrDefault();
+                        }
+                    }
+                }
+
                 foreach (var methodDefinition in typeDefinition.Methods)
                 {
                     if (!methodDefinition.HasBody)

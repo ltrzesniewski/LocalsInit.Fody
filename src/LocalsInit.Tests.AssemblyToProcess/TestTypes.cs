@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
@@ -44,6 +45,7 @@ namespace LocalsInit.Tests.AssemblyToProcess
     [LocalsInit(false)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     [SuppressMessage("ReSharper", "ValueParameterNotUsed")]
+    [SuppressMessage("ReSharper", "EventNeverSubscribedTo.Global")]
     public class TestTypeFalse : TestTypeBase
     {
         public void MethodDefault()
@@ -68,6 +70,19 @@ namespace LocalsInit.Tests.AssemblyToProcess
         {
             get => EnsureLocal(out _);
             [LocalsInit(false)] set => EnsureLocal(out _);
+        }
+
+        public event Action EventDefaultRemoveTrue
+        {
+            add => EnsureLocal(out _);
+            [LocalsInit(true)] remove => EnsureLocal(out _);
+        }
+
+        [LocalsInit(true)]
+        public event Action EventTrueRemoveFalse
+        {
+            add => EnsureLocal(out _);
+            [LocalsInit(false)] remove => EnsureLocal(out _);
         }
     }
 }
