@@ -5,7 +5,7 @@ namespace LocalsInit.Tests
 {
     public abstract class AssemblyTestsBase
     {
-        private readonly AssemblyFixture _fixture;
+        protected readonly AssemblyFixture _fixture;
 
         protected AssemblyTestsBase(AssemblyFixture fixture)
         {

@@ -18,8 +18,8 @@ namespace LocalsInit.Fody
 
         public override void Execute()
         {
-            var moduleValue = ConsumeAttribute(ModuleDefinition)
-                              ?? ConsumeAttribute(ModuleDefinition.Assembly);
+            var assemblyValue = ConsumeAttribute(ModuleDefinition.Assembly);
+            var moduleValue = ConsumeAttribute(ModuleDefinition) ?? assemblyValue;
 
             var methodDefaults = new Dictionary<MethodDefinition, bool>();
 

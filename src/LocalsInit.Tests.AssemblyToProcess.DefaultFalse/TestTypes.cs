@@ -2,7 +2,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using LocalsInit;
 
-[assembly: LocalsInit(false)]
+[assembly: LocalsInit(true)]
+[module: LocalsInit(false)]
 
 namespace LocalsInit.Tests.AssemblyToProcess.DefaultFalse
 {
