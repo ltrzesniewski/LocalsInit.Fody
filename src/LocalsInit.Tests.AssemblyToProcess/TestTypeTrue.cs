@@ -1,9 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace LocalsInit.Tests.AssemblyToProcess
 {
     [LocalsInit(true)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    [SuppressMessage("ReSharper", "UnusedParameter.Local")]
     public class TestTypeTrue : TestTypeBase
     {
         public void MethodDefault()
@@ -26,7 +28,13 @@ namespace LocalsInit.Tests.AssemblyToProcess
         {
             // This test case is only relevant in Release mode,
             // as a local variable will be created in Debug.
-            var _ = stackalloc byte[12];
+            var data = stackalloc byte[12];
+            Consume(data);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private static unsafe void Consume(void* _)
+        {
         }
     }
 }
