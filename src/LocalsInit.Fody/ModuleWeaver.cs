@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Fody;
 using Mono.Cecil;
+using Mono.Cecil.Cil;
 
 namespace LocalsInit.Fody
 {
@@ -85,11 +86,27 @@ namespace LocalsInit.Fody
                     if (methodValue == null)
                         methodValue = typeValue;
 
-                    if (methodValue != null)
-                        methodDefinition.Body.InitLocals = methodValue.GetValueOrDefault();
+                    switch (methodValue)
+                    {
+                        case null:
+                            break;
+
+                        case false:
+                            methodDefinition.Body.InitLocals = false;
+                            break;
+
+                        case true:
+                            if (ShouldHaveInitLocals(methodDefinition))
+                                methodDefinition.Body.InitLocals = true;
+                            break;
+                    }
                 }
             }
         }
+
+        private static bool ShouldHaveInitLocals(MethodDefinition methodDefinition)
+            => methodDefinition.Body.HasVariables
+               || methodDefinition.Body.Instructions.Any(i => i.OpCode == OpCodes.Localloc);
 
         private static bool? ConsumeAttribute(ICustomAttributeProvider item)
         {

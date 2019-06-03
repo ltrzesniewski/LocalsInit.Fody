@@ -18,6 +18,8 @@ namespace LocalsInit.Tests
         [InlineData("TestTypeTrue", "MethodDefault", true)]
         [InlineData("TestTypeTrue", "MethodTrue", true)]
         [InlineData("TestTypeTrue", "MethodFalse", false)]
+        [InlineData("TestTypeTrue", "MethodWithoutLocals", false)]
+        [InlineData("TestTypeTrue", "MethodWithStackalloc", true)]
         [InlineData("TestTypeFalse", "MethodDefault", false)]
         [InlineData("TestTypeFalse", "MethodTrue", true)]
         [InlineData("TestTypeFalse", "MethodFalse", false)]

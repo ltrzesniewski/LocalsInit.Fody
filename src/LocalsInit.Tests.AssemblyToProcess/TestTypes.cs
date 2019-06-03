@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace LocalsInit.Tests.AssemblyToProcess
 {
@@ -40,6 +41,18 @@ namespace LocalsInit.Tests.AssemblyToProcess
         [LocalsInit(false)]
         public void MethodFalse()
             => EnsureLocal(out _);
+
+        public void MethodWithoutLocals()
+        {
+            // No need to set localsinit on a method without locals or stackalloc.
+        }
+
+        public unsafe void MethodWithStackalloc()
+        {
+            // This test case is only relevant in Release mode,
+            // as a local variable will be created in Debug.
+            var _ = stackalloc byte[12];
+        }
     }
 
     [LocalsInit(false)]
