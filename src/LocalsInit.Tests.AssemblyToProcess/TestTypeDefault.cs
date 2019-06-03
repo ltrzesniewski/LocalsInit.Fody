@@ -6,6 +6,14 @@ namespace LocalsInit.Tests.AssemblyToProcess
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class TestTypeDefault : TestTypeBase
     {
+        [LocalsInit(false)]
+        static TestTypeDefault()
+            => EnsureLocal(out _);
+
+        [LocalsInit(false)]
+        public TestTypeDefault()
+            => EnsureLocal(out _);
+
         public void MethodDefault()
             => EnsureLocal(out _);
 

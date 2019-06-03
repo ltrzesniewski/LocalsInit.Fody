@@ -8,6 +8,14 @@ namespace LocalsInit.Tests.AssemblyToProcess
     [SuppressMessage("ReSharper", "UnusedParameter.Local")]
     public class TestTypeTrue : TestTypeBase
     {
+        [LocalsInit(false)]
+        static TestTypeTrue()
+            => EnsureLocal(out _);
+
+        [LocalsInit(false)]
+        public TestTypeTrue()
+            => EnsureLocal(out _);
+
         public void MethodDefault()
             => EnsureLocal(out _);
 
