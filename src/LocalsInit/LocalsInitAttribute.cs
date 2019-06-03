@@ -7,7 +7,7 @@ namespace LocalsInit
     /// Set the value of the localsinit flag on methods under the scope this attribute is applied on.
     /// </summary>
     [SuppressMessage("ReSharper", "UnusedParameter.Local")]
-    [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Module | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Method | AttributeTargets.Constructor, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Module | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Method | AttributeTargets.Constructor | AttributeTargets.Property, Inherited = false)]
     public sealed class LocalsInitAttribute : Attribute
     {
         /// <summary>

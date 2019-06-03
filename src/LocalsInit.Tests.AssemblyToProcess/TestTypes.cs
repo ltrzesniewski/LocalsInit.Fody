@@ -6,57 +6,68 @@ namespace LocalsInit.Tests.AssemblyToProcess
     public abstract class TestTypeBase
     {
         [MethodImpl(MethodImplOptions.NoInlining)]
-        protected static void EnsureLocal(out int i)
+        protected static int EnsureLocal(out int i)
             => i = 0;
     }
 
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    [SuppressMessage("ReSharper", "UnusedVariable")]
     public class TestTypeDefault : TestTypeBase
     {
         public void MethodDefault()
-            => EnsureLocal(out var i);
+            => EnsureLocal(out _);
 
         [LocalsInit(true)]
         public void MethodTrue()
-            => EnsureLocal(out var i);
+            => EnsureLocal(out _);
 
         [LocalsInit(false)]
         public void MethodFalse()
-            => EnsureLocal(out var i);
+            => EnsureLocal(out _);
     }
 
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    [SuppressMessage("ReSharper", "UnusedVariable")]
     [LocalsInit(true)]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class TestTypeTrue : TestTypeBase
     {
         public void MethodDefault()
-            => EnsureLocal(out var i);
+            => EnsureLocal(out _);
 
         [LocalsInit(true)]
         public void MethodTrue()
-            => EnsureLocal(out var i);
+            => EnsureLocal(out _);
 
         [LocalsInit(false)]
         public void MethodFalse()
-            => EnsureLocal(out var i);
+            => EnsureLocal(out _);
     }
 
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    [SuppressMessage("ReSharper", "UnusedVariable")]
     [LocalsInit(false)]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    [SuppressMessage("ReSharper", "ValueParameterNotUsed")]
     public class TestTypeFalse : TestTypeBase
     {
         public void MethodDefault()
-            => EnsureLocal(out var i);
+            => EnsureLocal(out _);
 
         [LocalsInit(true)]
         public void MethodTrue()
-            => EnsureLocal(out var i);
+            => EnsureLocal(out _);
 
         [LocalsInit(false)]
         public void MethodFalse()
-            => EnsureLocal(out var i);
+            => EnsureLocal(out _);
+
+        public int PropertyDefaultSetTrue
+        {
+            get => EnsureLocal(out _);
+            [LocalsInit(true)] set => EnsureLocal(out _);
+        }
+
+        [LocalsInit(true)]
+        public int PropertyTrueSetFalse
+        {
+            get => EnsureLocal(out _);
+            [LocalsInit(false)] set => EnsureLocal(out _);
+        }
     }
 }

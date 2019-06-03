@@ -1,4 +1,5 @@
 using System.Linq;
+using Mono.Cecil;
 
 namespace LocalsInit.Tests
 {
@@ -12,11 +13,9 @@ namespace LocalsInit.Tests
         }
 
         protected bool GetFlagValue(string className, string methodName)
-            => _fixture.ResultModule
-                       .GetType($"{_fixture.OriginalModule.Assembly.Name.Name}.{className}")
-                       .Methods
-                       .Single(m => m.Name == methodName)
-                       .Body
-                       .InitLocals;
+            => GetTypeDefinition(className).Methods.Single(m => m.Name == methodName).Body.InitLocals;
+
+        protected TypeDefinition GetTypeDefinition(string className)
+            => _fixture.ResultModule.GetType($"{_fixture.OriginalModule.Assembly.Name.Name}.{className}");
     }
 }
