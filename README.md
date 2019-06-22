@@ -17,7 +17,7 @@ There is a [compiler feature proposal](https://github.com/dotnet/csharplang/blob
 
   ```
   PM> Install-Package Fody
-  PM> Install-Package InlineIL.Fody
+  PM> Install-Package LocalsInit.Fody
   ```
 
 - Add the `PrivateAssets="all"` metadata attribute to the `<PackageReference />` items of `Fody` and `LocalsInit.Fody` in your project file, so they won't be listed as dependencies.
