@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using Fody;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
@@ -18,7 +19,8 @@ namespace LocalsInit.Fody
 
         public override void Execute()
         {
-            var assemblyValue = ConsumeAttribute(ModuleDefinition.Assembly);
+            var defaultValue = GetDefaultValue();
+            var assemblyValue = ConsumeAttribute(ModuleDefinition.Assembly) ?? defaultValue;
             var moduleValue = ConsumeAttribute(ModuleDefinition) ?? assemblyValue;
 
             var methodDefaults = new Dictionary<MethodDefinition, bool>();
@@ -135,6 +137,24 @@ namespace LocalsInit.Fody
             catch (InvalidOperationException)
             {
                 throw new WeavingException($"Invalid {AttributeFullName} on {item.GetType().Name}: {item}");
+            }
+        }
+
+        private bool? GetDefaultValue()
+        {
+            var attrib = Config.Attribute("Default") ?? Config.Attribute("default");
+            var value = attrib?.Value;
+
+            if (string.IsNullOrEmpty(value))
+                return null;
+
+            try
+            {
+                return XmlConvert.ToBoolean(value);
+            }
+            catch
+            {
+                throw new WeavingException($"Invalid boolean value for configuration for the {attrib.Name} attribute: '{value}'");
             }
         }
     }

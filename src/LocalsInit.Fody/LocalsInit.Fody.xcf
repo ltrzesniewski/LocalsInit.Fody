@@ -1,1 +1,7 @@
-﻿<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+﻿<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:attribute name="Default" type="xs:boolean">
+    <xs:annotation>
+      <xs:documentation>Defines the default value for the localsinit flag.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+</xs:complexType>
