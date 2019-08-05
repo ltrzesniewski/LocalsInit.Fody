@@ -23,6 +23,8 @@ namespace LocalsInit.Fody
             var assemblyValue = ConsumeAttribute(ModuleDefinition.Assembly) ?? defaultValue;
             var moduleValue = ConsumeAttribute(ModuleDefinition) ?? assemblyValue;
 
+            var hasConfig = moduleValue != null;
+
             var methodDefaults = new Dictionary<MethodDefinition, bool>();
 
             foreach (var typeDefinition in ModuleDefinition.GetTypes())
@@ -50,16 +52,21 @@ namespace LocalsInit.Fody
                             break;
 
                         case false:
+                            hasConfig = true;
                             methodDefinition.Body.InitLocals = false;
                             break;
 
                         case true:
+                            hasConfig = true;
                             if (ShouldHaveInitLocals(methodDefinition))
                                 methodDefinition.Body.InitLocals = true;
                             break;
                     }
                 }
             }
+
+            if (!hasConfig)
+                LogWarning?.Invoke("LocalsInit.Fody has not been configured and didn't apply any changes.");
         }
 
         private static void CollectMethodDefaultsForType(TypeDefinition typeDefinition, Dictionary<MethodDefinition, bool> methodDefaults)
