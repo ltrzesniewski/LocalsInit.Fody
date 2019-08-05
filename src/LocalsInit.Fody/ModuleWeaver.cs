@@ -149,7 +149,7 @@ namespace LocalsInit.Fody
 
         private bool? GetDefaultValue()
         {
-            var attrib = Config.Attribute("Default") ?? Config.Attribute("default");
+            var attrib = Config?.Attribute("Default") ?? Config?.Attribute("default");
             var value = attrib?.Value;
 
             if (string.IsNullOrEmpty(value))
