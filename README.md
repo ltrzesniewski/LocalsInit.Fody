@@ -39,10 +39,22 @@ Add a `[LocalsInit(false)]` attribute to disable the `localsinit` flag at the de
 
 You can also add `[LocalsInit(true)]` attributes at lower levels to override the value set at a higher level.
 
-In practice, you'll probably want to set the default to `false` on the assembly level:
+In practice, you'll probably want to set the default to `false` at the assembly level. You can do so either as an assembly-level attribute:
 
 ```C#
 [assembly: LocalsInit(false)]
 ```
 
-Then, look in your code for usages of the `stackalloc` keyword. In each case, if the code assumes the memory to be zero-initialized, add the `[LocalsInit(true)]` attribute to the method (or change the code to remove that assumption).
+Or you can set the default value in `FodyWeavers.xml`:
+
+```XML
+<LocalsInit Default="false" />
+```
+
+Then, look in your code for usages of the `stackalloc` keyword. In each case, if the code assumes the memory to be zero-initialized, add the `[LocalsInit(true)]` attribute to the method, or change the code to remove that assumption.
+
+## Configuration
+
+The `LocalsInit` element in `FodyWeavers.xml` accepts the following attribute:
+
+ - `Default="true|false"` to set the default value of the `localsinit` flag for the assembly. This is equivalent to setting an assembly-level attribute.
