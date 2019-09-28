@@ -43,8 +43,7 @@ namespace LocalsInit.Fody
                     if (methodValue == null && methodDefaults.TryGetValue(methodDefinition, out var methodDefault))
                         methodValue = methodDefault;
 
-                    if (methodValue == null)
-                        methodValue = typeValue;
+                    methodValue ??= typeValue;
 
                     switch (methodValue)
                     {
@@ -161,7 +160,7 @@ namespace LocalsInit.Fody
             }
             catch
             {
-                throw new WeavingException($"Invalid boolean value for configuration for the {attrib.Name} attribute: '{value}'");
+                throw new WeavingException($"Invalid boolean value for configuration for the {attrib!.Name} attribute: '{value}'");
             }
         }
     }
