@@ -10,10 +10,10 @@ namespace LocalsInit.Tests
         public static string IsolateAssembly<T>()
         {
             var assembly = typeof(T).Assembly;
-            var assemblyPath = assembly.Location;
-            var assemblyDir = Path.GetDirectoryName(assemblyPath);
+            var assemblyPath = assembly.Location!;
+            var assemblyDir = Path.GetDirectoryName(assemblyPath)!;
             var rootTestDir = Path.Combine(assemblyDir, "WeavingTest");
-            var asmTestDir = Path.Combine(rootTestDir, Path.GetFileNameWithoutExtension(assemblyPath));
+            var asmTestDir = Path.Combine(rootTestDir, Path.GetFileNameWithoutExtension(assemblyPath)!);
 
             EmptyDirectory(asmTestDir);
             Directory.CreateDirectory(asmTestDir);
@@ -29,7 +29,7 @@ namespace LocalsInit.Tests
             if (!File.Exists(fileName))
                 throw new InvalidOperationException($"File not found: {fileName}");
 
-            var dest = Path.Combine(targetDir, Path.GetFileName(fileName));
+            var dest = Path.Combine(targetDir, Path.GetFileName(fileName)!);
             File.Copy(fileName, dest);
             return dest;
         }
