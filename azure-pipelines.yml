@@ -20,7 +20,7 @@ jobs:
         displayName: NuGet Restore
         inputs:
           solution: $(Solution)
-          msbuildArguments: /v:m /t:Restore
+          msbuildArguments: /v:m /t:Restore /bl:$(Build.ArtifactStagingDirectory)\restore.binlog
 
       - task: MSBuild@1
         displayName: Build
