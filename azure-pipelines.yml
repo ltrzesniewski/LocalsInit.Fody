@@ -12,7 +12,8 @@ jobs:
       - task: Cache@2
         displayName: NuGet Cache
         inputs:
-          key: NuGet
+          key: 'NuGet | **/*.csproj, **/Directory.Build.props'
+          restoreKeys: NuGet
           path: $(NUGET_PACKAGES)
 
       - task: MSBuild@1
