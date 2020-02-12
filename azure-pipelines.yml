@@ -2,12 +2,19 @@
 variables:
   Solution: src/LocalsInit.sln
   TestProject: src/LocalsInit.Tests/LocalsInit.Tests.csproj
+  NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
 
 jobs:
   - job: Windows
     pool:
       vmImage: windows-2019
     steps:
+      - task: Cache@2
+        displayName: NuGet Cache
+        inputs:
+          key: NuGet
+          path: $(NUGET_PACKAGES)
+
       - task: MSBuild@1
         displayName: NuGet Restore
         inputs:
