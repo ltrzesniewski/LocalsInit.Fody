@@ -65,7 +65,7 @@ namespace LocalsInit.Fody
             }
 
             if (!hasConfig)
-                LogWarning?.Invoke("LocalsInit.Fody has not been configured and didn't apply any changes.");
+                WriteWarning("LocalsInit.Fody has not been configured and didn't apply any changes.");
         }
 
         private static void CollectMethodDefaultsForType(TypeDefinition typeDefinition, Dictionary<MethodDefinition, bool> methodDefaults)
