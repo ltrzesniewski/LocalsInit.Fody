@@ -16,7 +16,8 @@
   <PropertyGroup>
     <Authors>Lucas Trzesniewski</Authors>
     <Description>Control the value of the localsinit flag on methods.</Description>
-    <PackageTags>IL, MSIL, Fody, ILWeaving, Cecil</PackageTags>
+    <Copyright>Copyright © Lucas Trzesniewski 2019-$([System.DateTime]::Now.ToString('yyyy'))</Copyright>
+    <PackageTags>IL;MSIL;Fody;ILWeaving;Cecil</PackageTags>
     <PackageProjectUrl>https://github.com/ltrzesniewski/LocalsInit.Fody</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageOutputPath>$(MSBuildThisFileDirectory)..\output</PackageOutputPath>
