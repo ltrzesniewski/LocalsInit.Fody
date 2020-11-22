@@ -5,7 +5,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DebugType>none</DebugType>
+    <DebugType>embedded</DebugType>
     <IsPackable>true</IsPackable>
     <PackageId>LocalsInit.Fody</PackageId>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
