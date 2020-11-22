@@ -9,7 +9,30 @@ This is an add-in for [Fody](https://github.com/Fody/Fody) which lets you contro
 
 This is most useful to eliminate the zero-initialization of memory returned by `stackalloc`.
 
-There is a [compiler feature proposal](https://github.com/dotnet/csharplang/blob/master/proposals/skip-localsinit.md) with the same goal. It will replace this weaver if it ever ships.
+## This is now a compiler feature
+
+Roslyn now lets you control this with [`SkipLocalsInitAttribute`](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.skiplocalsinitattribute).
+
+Prefer the compiler feature to this weaver whenever possible. See also [the spec](https://github.com/dotnet/csharplang/blob/master/proposals/csharp-9.0/skip-localsinit.md).
+
+If you want to target frameworks prior to .NET 5, you can still use the compiler feature by defining the attribute in your own assembly:
+
+```C#
+namespace System.Runtime.CompilerServices
+{
+    [AttributeUsage(AttributeTargets.Module
+                    | AttributeTargets.Class
+                    | AttributeTargets.Struct
+                    | AttributeTargets.Interface
+                    | AttributeTargets.Constructor
+                    | AttributeTargets.Method
+                    | AttributeTargets.Property
+                    | AttributeTargets.Event, Inherited = false)]
+    internal sealed class SkipLocalsInitAttribute : Attribute
+    {
+    }
+}
+```
 
 ## Installation
 
