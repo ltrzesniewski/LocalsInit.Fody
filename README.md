@@ -1,6 +1,6 @@
 # LocalsInit.Fody
 
-[![Build Status](https://dev.azure.com/Lucas-Trzesniewski/LocalsInit/_apis/build/status/LocalsInit.Fody?branchName=master)](https://dev.azure.com/Lucas-Trzesniewski/LocalsInit/_build/latest?definitionId=3&branchName=master)
+[![Build](https://github.com/ltrzesniewski/LocalsInit.Fody/workflows/Build/badge.svg)](https://github.com/ltrzesniewski/LocalsInit.Fody/actions?query=workflow%3ABuild)
 [![NuGet package](https://img.shields.io/nuget/v/LocalsInit.Fody.svg?logo=NuGet)](https://www.nuget.org/packages/LocalsInit.Fody)
 [![GitHub release](https://img.shields.io/github/release/ltrzesniewski/LocalsInit.Fody.svg?logo=GitHub)](https://github.com/ltrzesniewski/LocalsInit.Fody/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ltrzesniewski/LocalsInit.Fody/blob/master/LICENSE)

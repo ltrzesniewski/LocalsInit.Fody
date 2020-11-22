@@ -15,8 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{C76F845C
 ProjectSection(SolutionItems) = preProject
 	..\README.md = ..\README.md
 	Directory.Build.props = Directory.Build.props
-	..\azure-pipelines.yml = ..\azure-pipelines.yml
 	Directory.Build.targets = Directory.Build.targets
+	..\.github\workflows\build.yml = ..\.github\workflows\build.yml
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalsInit.Tests.AssemblyToProcess.DefaultFalse", "LocalsInit.Tests.AssemblyToProcess.DefaultFalse\LocalsInit.Tests.AssemblyToProcess.DefaultFalse.csproj", "{731C9422-441F-477F-A0C4-EA26FA7AA1C4}"
